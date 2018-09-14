@@ -39971,41 +39971,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var initialState = {
-  email: "",
-  authFailAlertMsg: "",
-  todos: []
-};
-var resolvers = {
-  Mutation: {
-    setTodos: function setTodos(_, params, _ref) {
-      var cache = _ref.cache;
-      var data = {
-        todos: params.todos
-      };
-      cache.writeData({
-        data: data
-      });
-      return null;
-    },
-    setEmail: function setEmail(_, params, _ref2) {
-      var cache = _ref2.cache;
-      console.log(_, params, cache);
-      var data = {
-        todos: params.email
-      };
-      cache.writeData({
-        data: data
-      });
-      return null;
-    }
-  }
-};
-var stateLink = new apollo_link_state__WEBPACK_IMPORTED_MODULE_6__["withClientState"]({
-  cache: new apollo_boost__WEBPACK_IMPORTED_MODULE_4__["InMemoryCache"](),
-  defaults: initialState,
-  resolvers: resolvers
-});
+var cache = new apollo_boost__WEBPACK_IMPORTED_MODULE_4__["InMemoryCache"]();
 var httpLink = new apollo_boost__WEBPACK_IMPORTED_MODULE_4__["HttpLink"]({
   uri: "https://intense-sierra-67303.herokuapp.com/gql"
 });
@@ -40029,9 +39995,9 @@ var afterwareLink = new apollo_boost__WEBPACK_IMPORTED_MODULE_4__["ApolloLink"](
     return response;
   });
 });
-var link = apollo_boost__WEBPACK_IMPORTED_MODULE_4__["ApolloLink"].from([stateLink, authLink, afterwareLink, httpLink]);
+var link = apollo_boost__WEBPACK_IMPORTED_MODULE_4__["ApolloLink"].from([authLink, afterwareLink, httpLink]);
 var client = new apollo_boost__WEBPACK_IMPORTED_MODULE_4__["ApolloClient"]({
-  cache: new apollo_boost__WEBPACK_IMPORTED_MODULE_4__["InMemoryCache"](),
+  cache: cache,
   link: link,
   defaultOptions: {
     watchQuery: {
@@ -40385,13 +40351,6 @@ function (_React$Component) {
           'password': password
         }
       }).then(function (res) {
-        _index__WEBPACK_IMPORTED_MODULE_4__["client"].mutate({
-          mutation: _queries__WEBPACK_IMPORTED_MODULE_1__["SET_EMAIL"],
-          variables: {
-            email: res.data.login.email
-          }
-        });
-
         _this.props.history.push("/");
       }).catch(function (e) {
         _this.setState(_objectSpread({}, _this.state, {
@@ -40638,13 +40597,6 @@ function (_React$Component) {
           'password': password
         }
       }).then(function (res) {
-        _index__WEBPACK_IMPORTED_MODULE_4__["client"].mutate({
-          mutation: _queries__WEBPACK_IMPORTED_MODULE_1__["SET_EMAIL"],
-          variables: {
-            email: res.data.signup.email
-          }
-        });
-
         _this.props.history.push("/");
       }).catch(function (e) {
         _this.setState(_objectSpread({}, _this.state, {

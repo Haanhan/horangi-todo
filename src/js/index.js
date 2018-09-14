@@ -8,38 +8,7 @@ import { ApolloProvider } from "react-apollo";
 import { withClientState } from "apollo-link-state";
 
 
-const initialState = {
-    email: "",
-    authFailAlertMsg: "",
-    todos: [],
-}
-
-const resolvers = {
-    Mutation: {
-        setTodos:  (_, params, {cache}) => {
-            const data = {
-                todos: params.todos
-            }
-            cache.writeData({data});
-            return null;
-        },
-        setEmail:  (_, params, {cache}) => {
-            console.log(_,params, cache);
-            const data = {
-                todos: params.email
-            }
-            cache.writeData({data});
-            return null;
-        }
-    }
-}
-
-const stateLink = new withClientState({
-    cache: new InMemoryCache(),
-    defaults: initialState,
-    resolvers: resolvers
-})
-
+const cache = new InMemoryCache();
 
 const httpLink = new HttpLink({
     uri: "https://intense-sierra-67303.herokuapp.com/gql"
@@ -68,11 +37,11 @@ const afterwareLink =  new ApolloLink((operation, forward)=>{
         });
 })
 
-const link = ApolloLink.from([stateLink, authLink, afterwareLink, httpLink]);
+const link = ApolloLink.from([authLink, afterwareLink, httpLink]);
 
 export const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    link: link,
+    cache,
+    link,
     defaultOptions: {
         watchQuery: {
             errorPolicy: "all"

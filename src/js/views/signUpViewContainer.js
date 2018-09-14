@@ -17,7 +17,6 @@ class LoginViewContainer extends React.Component{
         this.setState({...this.state, isLoading: true});
         this.props.mutate({variables: {'email': email, 'password': password}})
         .then(res => {
-            client.mutate({mutation: SET_EMAIL, variables: { email: res.data.signup.email }})
             this.props.history.push("/");
         })
         .catch(e => {
