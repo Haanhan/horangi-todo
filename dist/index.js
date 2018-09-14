@@ -39948,11 +39948,12 @@ function (_React$Component) {
 /*!*************************!*\
   !*** ./src/js/index.js ***!
   \*************************/
-/*! no exports provided */
+/*! exports provided: client */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "client", function() { return client; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
@@ -39965,26 +39966,45 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var apollo_link_state__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! apollo-link-state */ "./node_modules/apollo-link-state/lib/index.js");
 
 
- // import {Provider} from "react-redux";
-
- // import store from "./store.js";
 
 
 
 
 
 var initialState = {
-  user: {
-    email: null,
-    id: null
-  },
-  todoList: [],
-  isLoading: false
+  email: "",
+  authFailAlertMsg: "",
+  todos: []
+};
+var resolvers = {
+  Mutation: {
+    setTodos: function setTodos(_, params, _ref) {
+      var cache = _ref.cache;
+      var data = {
+        todos: params.todos
+      };
+      cache.writeData({
+        data: data
+      });
+      return null;
+    },
+    setEmail: function setEmail(_, params, _ref2) {
+      var cache = _ref2.cache;
+      console.log(_, params, cache);
+      var data = {
+        todos: params.email
+      };
+      cache.writeData({
+        data: data
+      });
+      return null;
+    }
+  }
 };
 var stateLink = new apollo_link_state__WEBPACK_IMPORTED_MODULE_6__["withClientState"]({
   cache: new apollo_boost__WEBPACK_IMPORTED_MODULE_4__["InMemoryCache"](),
-  defaults: {},
-  resolvers: {}
+  defaults: initialState,
+  resolvers: resolvers
 });
 var httpLink = new apollo_boost__WEBPACK_IMPORTED_MODULE_4__["HttpLink"]({
   uri: "https://intense-sierra-67303.herokuapp.com/gql"
@@ -40012,13 +40032,16 @@ var afterwareLink = new apollo_boost__WEBPACK_IMPORTED_MODULE_4__["ApolloLink"](
 var link = apollo_boost__WEBPACK_IMPORTED_MODULE_4__["ApolloLink"].from([stateLink, authLink, afterwareLink, httpLink]);
 var client = new apollo_boost__WEBPACK_IMPORTED_MODULE_4__["ApolloClient"]({
   cache: new apollo_boost__WEBPACK_IMPORTED_MODULE_4__["InMemoryCache"](),
-  link: link
+  link: link,
+  defaultOptions: {
+    watchQuery: {
+      errorPolicy: "all"
+    }
+  }
 });
-Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])( // <Provider store={store}>
-react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_apollo__WEBPACK_IMPORTED_MODULE_5__["ApolloProvider"], {
+Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_apollo__WEBPACK_IMPORTED_MODULE_5__["ApolloProvider"], {
   client: client
-}, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["BrowserRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_routes__WEBPACK_IMPORTED_MODULE_2__["default"], null))) // </Provider>
-, document.getElementById("app"));
+}, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["BrowserRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_routes__WEBPACK_IMPORTED_MODULE_2__["default"], null))), document.getElementById("app"));
 
 /***/ }),
 
@@ -40026,16 +40049,71 @@ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_apollo__WEBPACK
 /*!***************************!*\
   !*** ./src/js/queries.js ***!
   \***************************/
-/*! exports provided: getTodoList, login */
+/*! exports provided: GET_TODOS, GET_TODOS_LOCAL, LOGIN, SIGNUP, SET_TODOS, SET_EMAIL, GET_EMAIL */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTodoList", function() { return getTodoList; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_TODOS", function() { return GET_TODOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_TODOS_LOCAL", function() { return GET_TODOS_LOCAL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOGIN", function() { return LOGIN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SIGNUP", function() { return SIGNUP; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TODOS", function() { return SET_TODOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_EMAIL", function() { return SET_EMAIL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_EMAIL", function() { return GET_EMAIL; });
 /* harmony import */ var apollo_boost__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! apollo-boost */ "./node_modules/apollo-boost/lib/index.js");
+function _templateObject7() {
+  var data = _taggedTemplateLiteral(["\nquery getEmail{\n    email @client\n}\n"]);
+
+  _templateObject7 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6() {
+  var data = _taggedTemplateLiteral(["\nmutation($email: String!){\n    setEmail(email: $email) @client \n}\n"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["\nmutation($todos: Array!){\n    setTodos(todos: $todos) @client \n}\n"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\nmutation($email: String!, $password: String!){\n\tsignup(email: $email, password: $password){\n        email \n    }\n}\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\nmutation($email: String!, $password: String!){\n\tlogin(email: $email, password: $password){\n        email\n    }\n}\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\nmutation($email: String!, $password: String!){\n\tlogin(email: $email, password: $password){\n        id,\n        email,\n        password,\n    }\n}\n"]);
+  var data = _taggedTemplateLiteral(["\nquery{\n    todos @client{\n      id\n      text\n      completed\n      completedAt\n    }\n}\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -40045,7 +40123,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\nquery{\n    todos{\n      id\n      text\n      completed\n      completedAt\n    }\n}\n"]);
+  var data = _taggedTemplateLiteral(["\nquery {\n    todos{\n      id\n      text\n      completed\n      completedAt\n    }\n}\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -40057,8 +40135,13 @@ function _templateObject() {
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var getTodoList = Object(apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"])(_templateObject());
-var login = Object(apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"])(_templateObject2());
+var GET_TODOS = Object(apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"])(_templateObject());
+var GET_TODOS_LOCAL = Object(apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"])(_templateObject2());
+var LOGIN = Object(apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"])(_templateObject3());
+var SIGNUP = Object(apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"])(_templateObject4());
+var SET_TODOS = Object(apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"])(_templateObject5());
+var SET_EMAIL = Object(apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"])(_templateObject6());
+var GET_EMAIL = Object(apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"])(_templateObject7());
 
 /***/ }),
 
@@ -40077,6 +40160,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _views_mainViewContainer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views/mainViewContainer */ "./src/js/views/mainViewContainer.js");
 /* harmony import */ var _views_authView__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/authView */ "./src/js/views/authView.js");
+/* harmony import */ var _views_loginViewContainer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/loginViewContainer */ "./src/js/views/loginViewContainer.js");
+/* harmony import */ var _views_signUpViewContainer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./views/signUpViewContainer */ "./src/js/views/signUpViewContainer.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -40094,6 +40179,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
 
 
 
@@ -40121,7 +40208,11 @@ function (_React$Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
         path: "/login",
         exact: true,
-        component: _views_authView__WEBPACK_IMPORTED_MODULE_3__["default"]
+        component: _views_loginViewContainer__WEBPACK_IMPORTED_MODULE_4__["default"]
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+        path: "/signup",
+        exact: true,
+        component: _views_signUpViewContainer__WEBPACK_IMPORTED_MODULE_5__["default"]
       }));
     }
   }]);
@@ -40144,9 +40235,15 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _queries__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../queries */ "./src/js/queries.js");
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-apollo */ "./node_modules/react-apollo/react-apollo.browser.umd.js");
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_apollo__WEBPACK_IMPORTED_MODULE_2__);
+
+
 
 
 var AuthView = function AuthView(props) {
+  var email, password;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "hero is-fullheight is-bold is-primary"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -40159,7 +40256,11 @@ var AuthView = function AuthView(props) {
     className: "column is-one-third-desktop is-half-tablet"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "box"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+    onSubmit: function onSubmit(e) {
+      return e.preventDefault();
+    }
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "field"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
     className: "label"
@@ -40167,6 +40268,9 @@ var AuthView = function AuthView(props) {
     className: "control has-icons-right"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     className: "input is-medium",
+    ref: function ref(n) {
+      email = n;
+    },
     type: "text",
     placeholder: "Enter your email"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -40181,26 +40285,154 @@ var AuthView = function AuthView(props) {
     className: "control has-icons-right"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     className: "input is-medium",
+    ref: function ref(n) {
+      password = n;
+    },
     type: "password",
     placeholder: "Enter your password"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "icon is-small is-right"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    className: "fa fa-envelope"
-  })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "\xA0"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "field"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "fa fa-lock"
+  })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "\xA0"), props.failAlert && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "notification has-text-danger"
+  }, props.failAlert), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "control field"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    className: "button is-primary is-fullwidth is-medium"
-  }, "Sign in"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "button is-primary is-fullwidth is-medium ".concat(props.isLoading && "is-loading"),
+    onClick: function onClick() {
+      return props.primaryFn(email.value, password.value);
+    }
+  }, props.primaryBtnText)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "control field"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    className: "button is-fullwidth is-medium"
-  }, "Create new account")))))))));
+    type: "button",
+    className: "button is-text has-text-link is-fullwidth is-medium",
+    onClick: function onClick(e) {
+      return props.secondaryFn();
+    }
+  }, props.secondaryBtnText)))))))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (AuthView);
+
+/***/ }),
+
+/***/ "./src/js/views/loginViewContainer.js":
+/*!********************************************!*\
+  !*** ./src/js/views/loginViewContainer.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _queries__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../queries */ "./src/js/queries.js");
+/* harmony import */ var _authView__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./authView */ "./src/js/views/authView.js");
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-apollo */ "./node_modules/react-apollo/react-apollo.browser.umd.js");
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_apollo__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../index */ "./src/js/index.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+
+var LoginViewContainer =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(LoginViewContainer, _React$Component);
+
+  function LoginViewContainer(props) {
+    var _this;
+
+    _classCallCheck(this, LoginViewContainer);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(LoginViewContainer).call(this, props));
+
+    _this.doLogin = function (email, password) {
+      _this.setState(_objectSpread({}, _this.state, {
+        isLoading: true
+      }));
+
+      _this.props.mutate({
+        variables: {
+          'email': email,
+          'password': password
+        }
+      }).then(function (res) {
+        _index__WEBPACK_IMPORTED_MODULE_4__["client"].mutate({
+          mutation: _queries__WEBPACK_IMPORTED_MODULE_1__["SET_EMAIL"],
+          variables: {
+            email: res.data.login.email
+          }
+        });
+
+        _this.props.history.push("/");
+      }).catch(function (e) {
+        _this.setState(_objectSpread({}, _this.state, {
+          alertMsg: "You have entered a wrong email or password. Please try again."
+        }));
+
+        _this.setState(_objectSpread({}, _this.state, {
+          isLoading: false
+        }));
+      });
+    };
+
+    _this.goToSignUp = function () {
+      _this.props.history.push("/signup");
+    };
+
+    _this.state = {
+      alertMsg: "",
+      isLoading: false
+    };
+    return _this;
+  }
+
+  _createClass(LoginViewContainer, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_authView__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        primaryFn: this.doLogin,
+        primaryBtnText: "Log in",
+        secondaryFn: this.goToSignUp,
+        secondaryBtnText: "Create new account",
+        isLoading: this.state.isLoading,
+        failAlert: this.state.alertMsg
+      });
+    }
+  }]);
+
+  return LoginViewContainer;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_apollo__WEBPACK_IMPORTED_MODULE_3__["graphql"])(_queries__WEBPACK_IMPORTED_MODULE_1__["LOGIN"])(LoginViewContainer));
 
 /***/ }),
 
@@ -40224,9 +40456,14 @@ var MainView = function MainView(props) {
     className: "container"
   }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
     className: "section"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "level"
   }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", {
-    className: "title is-3 is-centered"
-  }, props.email, "'s To-do List"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "title is-3 level-left"
+  }, "To-do List"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+    onClick: props.logout,
+    className: "button level-right"
+  }, "Sign out")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "field has-addons"
   }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "control is-expanded"
@@ -40290,9 +40527,21 @@ function (_React$Component) {
   _inherits(MainViewContainer, _React$Component);
 
   function MainViewContainer() {
+    var _getPrototypeOf2;
+
+    var _temp, _this;
+
     _classCallCheck(this, MainViewContainer);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(MainViewContainer).apply(this, arguments));
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(MainViewContainer)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.logout = function () {
+      localStorage.removeItem("x-auth");
+
+      _this.props.history.push("/login");
+    }, _temp));
   }
 
   _createClass(MainViewContainer, [{
@@ -40308,8 +40557,9 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      console.log(this.props);
       return this.props.data.loading ? react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, "Loading...") : react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_mainView__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        props: this.props
+        logout: this.logout
       });
     }
   }]);
@@ -40317,7 +40567,125 @@ function (_React$Component) {
   return MainViewContainer;
 }(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_apollo__WEBPACK_IMPORTED_MODULE_1__["graphql"])(_queries__WEBPACK_IMPORTED_MODULE_0__["getTodoList"])(MainViewContainer));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_apollo__WEBPACK_IMPORTED_MODULE_1__["graphql"])(_queries__WEBPACK_IMPORTED_MODULE_0__["GET_TODOS"])(MainViewContainer));
+
+/***/ }),
+
+/***/ "./src/js/views/signUpViewContainer.js":
+/*!*********************************************!*\
+  !*** ./src/js/views/signUpViewContainer.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _queries__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../queries */ "./src/js/queries.js");
+/* harmony import */ var _authView__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./authView */ "./src/js/views/authView.js");
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-apollo */ "./node_modules/react-apollo/react-apollo.browser.umd.js");
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_apollo__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../index */ "./src/js/index.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+
+var LoginViewContainer =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(LoginViewContainer, _React$Component);
+
+  function LoginViewContainer(props) {
+    var _this;
+
+    _classCallCheck(this, LoginViewContainer);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(LoginViewContainer).call(this, props));
+
+    _this.doSignUp = function (email, password) {
+      _this.setState(_objectSpread({}, _this.state, {
+        isLoading: true
+      }));
+
+      _this.props.mutate({
+        variables: {
+          'email': email,
+          'password': password
+        }
+      }).then(function (res) {
+        _index__WEBPACK_IMPORTED_MODULE_4__["client"].mutate({
+          mutation: _queries__WEBPACK_IMPORTED_MODULE_1__["SET_EMAIL"],
+          variables: {
+            email: res.data.signup.email
+          }
+        });
+
+        _this.props.history.push("/");
+      }).catch(function (e) {
+        _this.setState(_objectSpread({}, _this.state, {
+          alertMsg: "Please try again."
+        }));
+
+        _this.setState(_objectSpread({}, _this.state, {
+          isLoading: false
+        }));
+      });
+    };
+
+    _this.goToLogin = function () {
+      _this.props.history.push("/login");
+    };
+
+    _this.state = {
+      alertMsg: "",
+      isLoading: false
+    };
+    return _this;
+  }
+
+  _createClass(LoginViewContainer, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_authView__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        primaryFn: this.doSignUp,
+        primaryBtnText: "Sign up",
+        secondaryFn: this.goToLogin,
+        secondaryBtnText: "Have an account? Log in here",
+        isLoading: this.state.isLoading,
+        failAlert: this.state.alertMsg
+      });
+    }
+  }]);
+
+  return LoginViewContainer;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_apollo__WEBPACK_IMPORTED_MODULE_3__["graphql"])(_queries__WEBPACK_IMPORTED_MODULE_1__["SIGNUP"])(LoginViewContainer));
 
 /***/ })
 

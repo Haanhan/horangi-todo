@@ -4,8 +4,10 @@ const MainView = (props) => {
     return(
         <div className="container">
             <section className="section">
-                <h3 className="title is-3 is-centered">{props.email}'s To-do List</h3>
-
+                <div className="level">
+                    <h3 className="title is-3 level-left">To-do List</h3>
+                    <button onClick={props.logout} className="button level-right">Sign out</button>
+                </div>
                 <div className="field has-addons">
                     <div className="control is-expanded">
                         <input className="input is-large" type="text"/>

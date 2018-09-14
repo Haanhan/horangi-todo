@@ -1,29 +1,43 @@
 import React from 'react';
 import {render} from 'react-dom';
 import Routes from "./routes";
-// import {Provider} from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-// import store from "./store.js";
 
 import { ApolloClient, InMemoryCache, HttpLink, ApolloLink } from 'apollo-boost';
 import { ApolloProvider } from "react-apollo";
 import { withClientState } from "apollo-link-state";
 
-import { gql } from "apollo-boost";
 
 const initialState = {
-    user: {
-        email: null,
-        id: null,
-    },
-    todoList: [],
-    isLoading: false
+    email: "",
+    authFailAlertMsg: "",
+    todos: [],
+}
+
+const resolvers = {
+    Mutation: {
+        setTodos:  (_, params, {cache}) => {
+            const data = {
+                todos: params.todos
+            }
+            cache.writeData({data});
+            return null;
+        },
+        setEmail:  (_, params, {cache}) => {
+            console.log(_,params, cache);
+            const data = {
+                todos: params.email
+            }
+            cache.writeData({data});
+            return null;
+        }
+    }
 }
 
 const stateLink = new withClientState({
     cache: new InMemoryCache(),
-    defaults: {},
-    resolvers: {}
+    defaults: initialState,
+    resolvers: resolvers
 })
 
 
@@ -56,19 +70,21 @@ const afterwareLink =  new ApolloLink((operation, forward)=>{
 
 const link = ApolloLink.from([stateLink, authLink, afterwareLink, httpLink]);
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
     cache: new InMemoryCache(),
     link: link,
+    defaultOptions: {
+        watchQuery: {
+            errorPolicy: "all"
+        }
+    }
 })
 
-
 render(
-    // <Provider store={store}>
-        <ApolloProvider client={client}>
-            <BrowserRouter>
-                <Routes/>
-            </BrowserRouter>
-        </ApolloProvider>
-    // </Provider>
+    <ApolloProvider client={client}>
+        <BrowserRouter>
+            <Routes/>
+        </BrowserRouter>
+    </ApolloProvider>
 , document.getElementById("app"));
 

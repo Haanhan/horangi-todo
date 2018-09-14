@@ -8,7 +8,7 @@ class LoadingView extends React.Component{
     render( ){
         console.log(this.props);
 
-        this.props.mutate({variables: {password: "123", email: "a@a.a"}})
+        this.props.mutate({variables: {password: "a", email: "a"}})
         .then(res =>{
             console.log(res);
         })
