@@ -8,7 +8,7 @@ const outputDir = path.resolve(__dirname, "dist");
 const srcDir = path.resolve(__dirname, "src");
 
 module.exports = {
-    mode: "development",
+    mode: "production",
     entry:{
         index: path.resolve(__dirname, "src/js/index.js"),
         style: path.resolve(__dirname, "src/styles/style.scss")

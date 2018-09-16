@@ -34,7 +34,8 @@ const MainView = ({
                 </div>
 
                 <div className="notification">
-                    <span className="far fa-lightbulb"></span> Tip: Click on to-do item to edit.
+                    <span className="inline-m"><span className="far fa-lightbulb"></span></span> 
+                    <span className="has-text-weight-bold inline-s">Tip:</span> Click on to-do item to edit.
                 </div>
 
                 <Todos todos={todos} 
