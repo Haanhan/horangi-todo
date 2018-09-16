@@ -10,7 +10,7 @@ class MainViewContainer extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            todoText: "fdfdf",
+            todoText: "",
             todos: [],
         }
     }
@@ -69,7 +69,6 @@ class MainViewContainer extends React.Component{
             this.props.data.refetch();
         })
         .catch(e => {
-            console.log(e);
         })
         this.setState({...this.state, todoText: ""})
     }

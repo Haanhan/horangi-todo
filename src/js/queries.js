@@ -54,21 +54,3 @@ mutation($id: String!, $text: String, $completed: Boolean){
     }
 }
 `
-
-// export const SET_TODOS = gql`
-// mutation($todos: Array!){
-//     setTodos(todos: $todos) @client 
-// }
-// `
-// export const SET_EMAIL = gql`
-// mutation($email: String!){
-//     setEmail(email: $email) @client 
-// }
-// `
-
-// export const GET_EMAIL = gql`
-// query getEmail{
-//     email @client
-// }
-// `
-
