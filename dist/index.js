@@ -39853,94 +39853,127 @@ if (hasSymbols()) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _default; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
-var _default =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(_default, _React$Component);
-
-  function _default() {
-    _classCallCheck(this, _default);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
-  }
-
-  _createClass(_default, [{
-    key: "render",
-    value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "panel"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "panel-block"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-        style: {
-          flex: 1
-        }
-      }, this.props.todo), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "button is-text is-danger is-inverted"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "icon"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "fa fa-trash"
-      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "panel-block"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        style: {
-          flex: 1
-        },
-        className: "field has-addons"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "control is-expanded"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        className: "input",
-        value: this.props.todo,
-        type: "text"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "control"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "button"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "icon"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "fa fa-times"
-      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "control"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "button is-primary"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "icon"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "fa fa-check"
-      })))))));
+var TodoItem = function TodoItem(_ref) {
+  var todo = _ref.todo,
+      updateTodo = _ref.updateTodo,
+      deleteTodo = _ref.deleteTodo,
+      toggleEdit = _ref.toggleEdit;
+  var checkClass = todo.pending ? "fa fa-spinner fa-spin" : todo.completed ? "fa fa-check-circle" : "far fa-circle";
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    className: "panel-block"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "is-size-4 has-text-info inline-s cursor-pointer",
+    onClick: function onClick() {
+      updateTodo(_objectSpread({}, todo, {
+        completed: !todo.completed
+      }));
     }
-  }]);
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: checkClass
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    onClick: function onClick() {
+      toggleEdit(todo);
+    },
+    className: todo.completed ? "has-text-grey-light flex-1" : "flex-1"
+  }, todo.text), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "button is-text is-danger is-inverted",
+    onClick: function onClick() {
+      deleteTodo(todo.id);
+    }
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "icon"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "fa fa-trash"
+  }))));
+};
 
-  return _default;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+var TodoEdit = function TodoEdit(_ref2) {
+  var todo = _ref2.todo,
+      updateTodo = _ref2.updateTodo,
+      toggleEdit = _ref2.toggleEdit;
+  var inputVal = todo.text;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "panel-block"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "field has-addons flex-1"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "control is-expanded"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    className: "input",
+    defaultValue: inputVal,
+    onKeyPress: function onKeyPress(e) {
+      e.key === "Enter" ? function () {
+        updateTodo(_objectSpread({}, todo, {
+          text: inputVal
+        }));
+        toggleEdit(todo);
+      }() : {};
+    },
+    onChange: function onChange(e) {
+      inputVal = e.target.value;
+    },
+    type: "text"
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "control"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "button",
+    onClick: function onClick() {
+      toggleEdit(todo);
+      inputVal = "";
+    }
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "icon"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "fa fa-times"
+  })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "control"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "button is-primary",
+    onClick: function onClick() {
+      updateTodo(_objectSpread({}, todo, {
+        text: inputVal
+      }));
+      toggleEdit(todo);
+    }
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "icon"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "fa fa-check"
+  }))))));
+};
 
+var Todos = function Todos(_ref3) {
+  var todos = _ref3.todos,
+      updateTodo = _ref3.updateTodo,
+      deleteTodo = _ref3.deleteTodo,
+      toggleEdit = _ref3.toggleEdit;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "panel"
+  }, todos.map(function (todo) {
+    return todo.edit ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TodoEdit, {
+      key: todo.id,
+      todo: todo,
+      toggleEdit: toggleEdit,
+      updateTodo: updateTodo
+    }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TodoItem, {
+      key: todo.id,
+      todo: todo,
+      toggleEdit: toggleEdit,
+      deleteTodo: deleteTodo,
+      updateTodo: updateTodo
+    });
+  }));
+};
 
+/* harmony default export */ __webpack_exports__["default"] = (Todos);
 
 /***/ }),
 
@@ -40015,31 +40048,20 @@ Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED
 /*!***************************!*\
   !*** ./src/js/queries.js ***!
   \***************************/
-/*! exports provided: GET_TODOS, GET_TODOS_LOCAL, LOGIN, SIGNUP, SET_TODOS, SET_EMAIL, GET_EMAIL */
+/*! exports provided: GET_TODOS, LOGIN, SIGNUP, ADD_TODO, DELETE_TODO, UPDATE_TODO */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_TODOS", function() { return GET_TODOS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_TODOS_LOCAL", function() { return GET_TODOS_LOCAL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOGIN", function() { return LOGIN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SIGNUP", function() { return SIGNUP; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TODOS", function() { return SET_TODOS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_EMAIL", function() { return SET_EMAIL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_EMAIL", function() { return GET_EMAIL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_TODO", function() { return ADD_TODO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_TODO", function() { return DELETE_TODO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_TODO", function() { return UPDATE_TODO; });
 /* harmony import */ var apollo_boost__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! apollo-boost */ "./node_modules/apollo-boost/lib/index.js");
-function _templateObject7() {
-  var data = _taggedTemplateLiteral(["\nquery getEmail{\n    email @client\n}\n"]);
-
-  _templateObject7 = function _templateObject7() {
-    return data;
-  };
-
-  return data;
-}
-
 function _templateObject6() {
-  var data = _taggedTemplateLiteral(["\nmutation($email: String!){\n    setEmail(email: $email) @client \n}\n"]);
+  var data = _taggedTemplateLiteral(["\nmutation($id: String!, $text: String, $completed: Boolean){\n\tupdateTodo(id: $id, text:$text, completed:$completed){\n        id\n        text\n        completed\n    }\n}\n"]);
 
   _templateObject6 = function _templateObject6() {
     return data;
@@ -40049,7 +40071,7 @@ function _templateObject6() {
 }
 
 function _templateObject5() {
-  var data = _taggedTemplateLiteral(["\nmutation($todos: Array!){\n    setTodos(todos: $todos) @client \n}\n"]);
+  var data = _taggedTemplateLiteral(["\nmutation($id: String!){\n\tdeleteTodo(id: $id){\n        id\n        text\n        completed\n    }\n}\n"]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -40059,7 +40081,7 @@ function _templateObject5() {
 }
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\nmutation($email: String!, $password: String!){\n\tsignup(email: $email, password: $password){\n        email \n    }\n}\n"]);
+  var data = _taggedTemplateLiteral(["\nmutation($text: String!){\n\taddTodo(text: $text){\n        id\n        text\n        completed\n    }\n}\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -40069,7 +40091,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\nmutation($email: String!, $password: String!){\n\tlogin(email: $email, password: $password){\n        email\n    }\n}\n"]);
+  var data = _taggedTemplateLiteral(["\nmutation($email: String!, $password: String!){\n\tsignup(email: $email, password: $password){\n        email \n    }\n}\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -40079,7 +40101,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\nquery{\n    todos @client{\n      id\n      text\n      completed\n      completedAt\n    }\n}\n"]);
+  var data = _taggedTemplateLiteral(["\nmutation($email: String!, $password: String!){\n\tlogin(email: $email, password: $password){\n        email\n    }\n}\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -40089,7 +40111,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\nquery {\n    todos{\n      id\n      text\n      completed\n      completedAt\n    }\n}\n"]);
+  var data = _taggedTemplateLiteral(["\nquery {\n    todos{\n      id\n      text\n      completed\n    }\n}\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -40102,12 +40124,25 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 var GET_TODOS = Object(apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"])(_templateObject());
-var GET_TODOS_LOCAL = Object(apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"])(_templateObject2());
-var LOGIN = Object(apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"])(_templateObject3());
-var SIGNUP = Object(apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"])(_templateObject4());
-var SET_TODOS = Object(apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"])(_templateObject5());
-var SET_EMAIL = Object(apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"])(_templateObject6());
-var GET_EMAIL = Object(apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"])(_templateObject7());
+var LOGIN = Object(apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"])(_templateObject2());
+var SIGNUP = Object(apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"])(_templateObject3());
+var ADD_TODO = Object(apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"])(_templateObject4());
+var DELETE_TODO = Object(apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"])(_templateObject5());
+var UPDATE_TODO = Object(apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"])(_templateObject6()); // export const SET_TODOS = gql`
+// mutation($todos: Array!){
+//     setTodos(todos: $todos) @client 
+// }
+// `
+// export const SET_EMAIL = gql`
+// mutation($email: String!){
+//     setEmail(email: $email) @client 
+// }
+// `
+// export const GET_EMAIL = gql`
+// query getEmail{
+//     email @client
+// }
+// `
 
 /***/ }),
 
@@ -40284,6 +40319,35 @@ var AuthView = function AuthView(props) {
 
 /***/ }),
 
+/***/ "./src/js/views/loadingView.js":
+/*!*************************************!*\
+  !*** ./src/js/views/loadingView.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var LoadingView = function LoadingView() {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+    className: "hero is-fullheight "
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "hero-body"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container has-text-centered"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "loader"
+  }))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (LoadingView);
+
+/***/ }),
+
 /***/ "./src/js/views/loginViewContainer.js":
 /*!********************************************!*\
   !*** ./src/js/views/loginViewContainer.js ***!
@@ -40410,7 +40474,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var MainView = function MainView(props) {
+var MainView = function MainView(_ref) {
+  var logout = _ref.logout,
+      updateTodoText = _ref.updateTodoText,
+      addTodo = _ref.addTodo,
+      todos = _ref.todos,
+      updateTodo = _ref.updateTodo,
+      deleteTodo = _ref.deleteTodo,
+      toggleEdit = _ref.toggleEdit,
+      todoText = _ref.todoText;
   return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "container"
   }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
@@ -40420,22 +40492,37 @@ var MainView = function MainView(props) {
   }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", {
     className: "title is-3 level-left"
   }, "To-do List"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-    onClick: props.logout,
+    onClick: logout,
     className: "button level-right"
   }, "Sign out")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "field has-addons"
   }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "control is-expanded"
   }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+    value: todoText,
+    onKeyPress: function onKeyPress(e) {
+      e.key === "Enter" ? addTodo() : {};
+    },
+    onChange: updateTodoText,
     className: "input is-large",
     type: "text"
   })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "control"
   }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-    className: "button is-primary is-large"
+    className: "button is-primary is-large",
+    onClick: addTodo
   }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
     className: "fa fa-plus"
-  })))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_todos__WEBPACK_IMPORTED_MODULE_0__["default"], null)));
+  })))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "notification"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+    className: "far fa-lightbulb"
+  }), " Tip: Click on to-do item to edit."), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_todos__WEBPACK_IMPORTED_MODULE_0__["default"], {
+    todos: todos,
+    toggleEdit: toggleEdit,
+    updateTodo: updateTodo,
+    deleteTodo: deleteTodo
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (MainView);
@@ -40457,7 +40544,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _mainView__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./mainView */ "./src/js/views/mainView.js");
+/* harmony import */ var _loadingView__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./loadingView */ "./src/js/views/loadingView.js");
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../index */ "./src/js/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -40480,33 +40581,124 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+
 var MainViewContainer =
 /*#__PURE__*/
 function (_React$Component) {
   _inherits(MainViewContainer, _React$Component);
 
-  function MainViewContainer() {
-    var _getPrototypeOf2;
-
-    var _temp, _this;
+  function MainViewContainer(props) {
+    var _this;
 
     _classCallCheck(this, MainViewContainer);
 
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(MainViewContainer).call(this, props));
 
-    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(MainViewContainer)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.logout = function () {
+    _this.logout = function () {
       localStorage.removeItem("x-auth");
 
       _this.props.history.push("/login");
-    }, _temp));
+    };
+
+    _this.toggleEdit = function (todo) {
+      var todosCopy = _toConsumableArray(_this.state.todos);
+
+      var index = todosCopy.findIndex(function (x) {
+        return x.id === todo.id;
+      });
+      if (index < 0) return;
+      todosCopy[index] = _objectSpread({}, todo, {
+        "Symbol(id)": "TodoType:".concat(todo.id),
+        edit: !todo.edit
+      });
+
+      _this.setState(_objectSpread({}, _this.state, {
+        todos: todosCopy
+      }));
+    };
+
+    _this.updateTodoText = function (_ref) {
+      var target = _ref.target;
+
+      _this.setState(_objectSpread({}, _this.state, {
+        todoText: target.value
+      }));
+    };
+
+    _this.addTodo = function () {
+      _index__WEBPACK_IMPORTED_MODULE_5__["client"].mutate({
+        mutation: _queries__WEBPACK_IMPORTED_MODULE_0__["ADD_TODO"],
+        variables: {
+          "text": _this.state.todoText
+        }
+      }).then(function (_ref2) {
+        var data = _ref2.data;
+
+        _this.props.data.refetch();
+      }).catch(function (e) {
+        console.log(e);
+      });
+
+      _this.setState(_objectSpread({}, _this.state, {
+        todoText: ""
+      }));
+    };
+
+    _this.deleteTodo = function (id) {
+      _index__WEBPACK_IMPORTED_MODULE_5__["client"].mutate({
+        mutation: _queries__WEBPACK_IMPORTED_MODULE_0__["DELETE_TODO"],
+        variables: {
+          id: id
+        }
+      }).then(function (res) {
+        _this.props.data.refetch();
+      });
+    };
+
+    _this.updateTodo = function (_ref3) {
+      var id = _ref3.id,
+          text = _ref3.text,
+          completed = _ref3.completed;
+      _index__WEBPACK_IMPORTED_MODULE_5__["client"].mutate({
+        mutation: _queries__WEBPACK_IMPORTED_MODULE_0__["UPDATE_TODO"],
+        variables: {
+          id: id,
+          text: text,
+          completed: completed
+        }
+      }).then(function (_ref4) {
+        var data = _ref4.data;
+      }).catch(function (e) {});
+
+      var todosCopy = _toConsumableArray(_this.state.todos);
+
+      var index = todosCopy.findIndex(function (x) {
+        return x.id === id;
+      });
+      if (index < 0) return;
+      todosCopy[index] = _objectSpread({}, todosCopy[index], {
+        text: text,
+        completed: completed,
+        pending: true
+      });
+
+      _this.setState(_objectSpread({}, _this.state, {
+        todos: todosCopy
+      }));
+    };
+
+    _this.state = {
+      todoText: "fdfdf",
+      todos: []
+    };
+    return _this;
   }
 
   _createClass(MainViewContainer, [{
     key: "shouldComponentUpdate",
     value: function shouldComponentUpdate(newProps) {
-      if (newProps.data.error) {
+      if (newProps.data.error && !newProps.data.todos) {
         newProps.history.push("/login");
         return false;
       }
@@ -40514,11 +40706,31 @@ function (_React$Component) {
       return true;
     }
   }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.data.todos !== prevProps.data.todos) {
+        this.setState(_objectSpread({}, this.state, {
+          todos: _toConsumableArray(this.props.data.todos)
+        }));
+      }
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.data.refetch();
+    }
+  }, {
     key: "render",
     value: function render() {
-      console.log(this.props);
-      return this.props.data.loading ? react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, "Loading...") : react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_mainView__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        logout: this.logout
+      return this.props.data.loading ? react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_loadingView__WEBPACK_IMPORTED_MODULE_4__["default"], null) : react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_mainView__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        logout: this.logout,
+        toggleEdit: this.toggleEdit,
+        todoText: this.todoText,
+        updateTodoText: this.updateTodoText,
+        updateTodo: this.updateTodo,
+        addTodo: this.addTodo,
+        deleteTodo: this.deleteTodo,
+        todos: this.state.todos
       });
     }
   }]);

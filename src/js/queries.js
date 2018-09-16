@@ -6,18 +6,6 @@ query {
       id
       text
       completed
-      completedAt
-    }
-}
-`
-
-export const GET_TODOS_LOCAL = gql`
-query{
-    todos @client{
-      id
-      text
-      completed
-      completedAt
     }
 }
 `
@@ -36,20 +24,51 @@ mutation($email: String!, $password: String!){
     }
 }
 `
-export const SET_TODOS = gql`
-mutation($todos: Array!){
-    setTodos(todos: $todos) @client 
-}
-`
-export const SET_EMAIL = gql`
-mutation($email: String!){
-    setEmail(email: $email) @client 
+
+export const ADD_TODO = gql`
+mutation($text: String!){
+	addTodo(text: $text){
+        id
+        text
+        completed
+    }
 }
 `
 
-export const GET_EMAIL = gql`
-query getEmail{
-    email @client
+export const DELETE_TODO = gql`
+mutation($id: String!){
+	deleteTodo(id: $id){
+        id
+        text
+        completed
+    }
 }
 `
+
+export const UPDATE_TODO = gql`
+mutation($id: String!, $text: String, $completed: Boolean){
+	updateTodo(id: $id, text:$text, completed:$completed){
+        id
+        text
+        completed
+    }
+}
+`
+
+// export const SET_TODOS = gql`
+// mutation($todos: Array!){
+//     setTodos(todos: $todos) @client 
+// }
+// `
+// export const SET_EMAIL = gql`
+// mutation($email: String!){
+//     setEmail(email: $email) @client 
+// }
+// `
+
+// export const GET_EMAIL = gql`
+// query getEmail{
+//     email @client
+// }
+// `
 

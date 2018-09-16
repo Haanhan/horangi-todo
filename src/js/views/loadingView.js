@@ -1,29 +1,13 @@
 import React from "react";
-import {graphql} from "react-apollo";
-import {getTodoList, login} from "../queries";
 
-class LoadingView extends React.Component{
+const LoadingView  = () => (
+    <section className="hero is-fullheight ">
+        <div className="hero-body">
+            <div className="container has-text-centered">
+                <div className="loader"></div>
+            </div>
+        </div>
+    </section>
+)
 
-
-    render( ){
-        console.log(this.props);
-
-        this.props.mutate({variables: {password: "a", email: "a"}})
-        .then(res =>{
-            console.log(res);
-        })
-        .catch(e => {
-            console.log(e);
-        })
-
-        return(
-            <div>Loading...</div>
-        );
-    }
-}
-
-let options = {
-
-}
-
-export default graphql(login)(LoadingView);
+export default LoadingView;

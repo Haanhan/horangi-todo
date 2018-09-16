@@ -1,0 +1,33 @@
+$space-base: 20px;
+$inset-base:    $space-base;
+$inset-m:       $inset-base;
+$inset-l:       $inset-m * 2;
+$inset-xl:      $inset-l * 2;
+$inset-s:       floor($inset-m / 2);
+$inset-xs:      floor($inset-s / 2);
+
+$inset-squish-m-vertical:      floor($inset-m / 2) + 2;
+$inset-squish-l-vertical:      floor($inset-l / 2) + 2;
+$inset-squish-s-vertical:      floor($inset-s / 2) + 2;
+$inset-squish-m:               $inset-squish-m-vertical $inset-m;
+$inset-squish-l:               $inset-squish-l-vertical $inset-l;
+$inset-squish-s:               $inset-squish-s-vertical $inset-s;
+
+$inset-stretch-m:       floor($inset-m / 2 * 3) $inset-m;
+$inset-stretch-s:      floor($inset-s / 2 * 3) $inset-s;
+
+$stack-base:    $space-base;
+$stack-m:       $stack-base;
+$stack-l:       $stack-m * 2;
+$stack-xl:      $stack-l * 2;
+$stack-s:       floor($stack-m / 2);
+$stack-xs:      floor($stack-s / 2);
+$stack-xxs:     floor($stack-xs / 2);
+
+$inline-base:    $space-base;
+$inline-m:       $stack-base;
+$inline-l:       $stack-m * 2;
+$inline-xl:      $stack-l * 2;
+$inline-s:       floor($stack-m / 2);
+$inline-xs:      floor($stack-s / 2);
+$inline-xxs:     floor($stack-xs / 2);
