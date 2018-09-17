@@ -55,5 +55,5 @@ https://www.robinwieruch.de/react-apollo-link-state-tutorial/
 https://bulma.io
 
 ### Webpack
-#### Transform Class Porperties
+#### Transform Class Properties
 https://babeljs.io/docs/en/babel-plugin-transform-class-properties/
