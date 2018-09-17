@@ -51,7 +51,7 @@ https://www.apollographql.com/docs/react/advanced/network-layer.html
 #### Apollo link state
 https://www.robinwieruch.de/react-apollo-link-state-tutorial/
 
-#### Bulma
+### Bulma
 https://bulma.io
 
 ### Webpack
